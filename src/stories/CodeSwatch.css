@@ -1,33 +1,58 @@
+/* Light is the unqualified default, matching the Scheme toolbar's own default.
+   The dark block below is the override, and `[data-inverse]` reuses the dark
+   values in EITHER scheme for the story that shows a card over an expressive
+   dark panel. */
+
 .ic-specimen {
   --specimen-ink: #161925;
   --specimen-muted: #686e86;
   --specimen-line: rgb(22 25 37 / 0.1);
   --specimen-stage: rgb(255 255 255 / 0.78);
   --specimen-code: #111520;
+  --specimen-bg: rgb(255 255 255 / 0.72);
+  --specimen-border: rgb(22 25 37 / 0.1);
+  --specimen-sheen: rgb(255 255 255 / 0.9);
+  --specimen-cast: rgb(22 25 37 / 0.05);
+  --specimen-cast-hover: rgb(22 25 37 / 0.08);
+  --specimen-hover-line: rgb(var(--cobalt-channel, 0 106 204) / 0.28);
 
   display: grid;
   grid-template-rows: minmax(6.25rem, 1fr) auto;
   min-width: 0;
   overflow: hidden;
   color: var(--specimen-ink);
-  background: rgb(255 255 255 / 0.72);
-  border: 1px solid var(--specimen-line);
+  background: var(--specimen-bg);
+  border: 1px solid var(--specimen-border);
   border-radius: 1rem;
   box-shadow:
-    0 1px 0 rgb(255 255 255 / 0.9) inset,
-    0 10px 30px rgb(22 25 37 / 0.05);
+    0 1px 0 var(--specimen-sheen) inset,
+    0 10px 30px var(--specimen-cast);
   transition:
     transform 180ms cubic-bezier(0.16, 1, 0.3, 1),
     border-color 180ms ease,
     box-shadow 180ms ease;
 }
 
+[data-theme="dark"] .ic-specimen {
+  --specimen-ink: #f0f2ff;
+  --specimen-muted: rgb(240 242 255 / 0.6);
+  --specimen-line: rgb(255 255 255 / 0.1);
+  --specimen-stage: rgb(7 8 15 / 0.32);
+  --specimen-code: rgb(7 8 15 / 0.72);
+  --specimen-bg: rgb(255 255 255 / 0.045);
+  --specimen-border: rgb(255 255 255 / 0.11);
+  --specimen-sheen: rgb(255 255 255 / 0.05);
+  --specimen-cast: rgb(3 4 10 / 0.4);
+  --specimen-cast-hover: rgb(3 4 10 / 0.55);
+  --specimen-hover-line: rgb(var(--cobalt-channel, 0 138 255) / 0.42);
+}
+
 .ic-specimen:hover {
   transform: translateY(-2px);
-  border-color: rgb(var(--cobalt-channel, 0 106 204) / 0.28);
+  border-color: var(--specimen-hover-line);
   box-shadow:
-    0 1px 0 rgb(255 255 255 / 0.95) inset,
-    0 16px 36px rgb(22 25 37 / 0.08);
+    0 1px 0 var(--specimen-sheen) inset,
+    0 16px 36px var(--specimen-cast-hover);
 }
 
 .ic-specimen[data-wide] {
@@ -141,18 +166,21 @@
   font: 500 0.68rem/1.55 var(--font-mono, ui-monospace, monospace);
 }
 
-.ic-specimen[data-inverse] {
+/* The context story puts cards on an expressive dark panel in BOTH schemes, so
+   this override has to beat the light block above — hence the doubled attribute,
+   which costs a specificity point and no new declarations. */
+.ic-specimen[data-inverse][data-inverse] {
+  --specimen-ink: #f0f2ff;
+  --specimen-muted: rgb(240 242 255 / 0.6);
   --specimen-line: rgb(255 255 255 / 0.13);
   --specimen-stage: rgb(7 8 15 / 0.16);
   --specimen-code: rgb(7 8 15 / 0.68);
-
-  background: rgb(255 255 255 / 0.08);
-  border-color: rgb(255 255 255 / 0.16);
-  box-shadow: 0 16px 40px rgb(7 8 15 / 0.16);
-}
-
-.ic-specimen[data-inverse]:hover {
-  border-color: rgb(255 255 255 / 0.28);
+  --specimen-bg: rgb(255 255 255 / 0.08);
+  --specimen-border: rgb(255 255 255 / 0.16);
+  --specimen-sheen: rgb(255 255 255 / 0.06);
+  --specimen-cast: rgb(7 8 15 / 0.16);
+  --specimen-cast-hover: rgb(7 8 15 / 0.24);
+  --specimen-hover-line: rgb(255 255 255 / 0.28);
 }
 
 .ic-visually-hidden {

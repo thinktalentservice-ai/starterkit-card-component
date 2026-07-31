@@ -279,7 +279,7 @@ export const OnAColouredSurface: Story = {
       <div className="ic-story-context">
         <Section
           title="Glass over a gradient"
-          description="The vendored defaults are dark-first; this is the surface they were tuned for."
+          description="A flat canvas hides what glass does. This panel stays dark in either Scheme — a per-subtree scheme is a case the card has to survive, not just a screenshot."
         >
           <div className="ic-story-grid">
             <Swatch fill="glass" inverse interactive>

@@ -90,11 +90,16 @@
   --ic-t-gradient-cobalt: var(--gradient-cobalt, linear-gradient(145deg, var(--cobalt-light, #008AFF), var(--cobalt-deep, #005FB8)));
 }
 
-/* Same defaults for a host that ships no scheme attribute at all. Scoped to a
-   root carrying neither: without that guard, a host running dark mode on a
-   light-preference machine would pick these up. */
+/* Same defaults for a host that ships no scheme attribute at all. Without a
+   guard, a host running dark mode on a light-preference machine would pick
+   these up — so the rule is scoped to a card with no declared scheme ANYWHERE
+   above it, not merely to a bare :root. MUI puts its attribute on <html>, but
+   a scheme attribute is legal on any wrapper, and a per-subtree scheme is the
+   normal way to render a dark panel inside a light page. Checking :root alone
+   let every one of those cases fall through to the light tokens. */
 @media (prefers-color-scheme: light) {
-  :root:not([data-mui-color-scheme]):not([data-theme]) .ic-card {
+  :root:not([data-mui-color-scheme]):not([data-theme])
+    .ic-card:not([data-mui-color-scheme] *):not([data-theme] *) {
     --ic-t-surface: var(--surface, #ffffff);
     --ic-t-surface-elevated: var(--surface-elevated, #f0f1f7);
     --ic-t-fg1: var(--fg1, #1a1d2e);
@@ -127,11 +132,19 @@
    Declared under private `--ic-*` names on .ic-card. Consumers override them
    per instance or per subtree; nothing here touches :root. */
 
+/* Three depths, not one. The cast under a lifted card is graded by how far off
+   the page that fill sits — surface is the shallowest, elevated the deepest,
+   and collapsing them to a single value flattens the ordering the fills exist
+   to express. The light values are the dark ones scaled to a scheme where a
+   black cast reads as dirt rather than depth. */
+
 .ic-card {
   --ic-glow-a: 0.35;
   --ic-glow-a-far: 0.12;
   --ic-glow-a-hover: 0.45;
+  --ic-depth-soft: rgba(0, 0, 0, 0.25);
   --ic-depth: rgba(0, 0, 0, 0.3);
+  --ic-depth-deep: rgba(0, 0, 0, 0.32);
 }
 
 [data-mui-color-scheme="light"] .ic-card,
@@ -139,15 +152,21 @@
   --ic-glow-a: 0.2;
   --ic-glow-a-far: 0.06;
   --ic-glow-a-hover: 0.28;
+  --ic-depth-soft: rgba(15, 23, 42, 0.12);
   --ic-depth: rgba(15, 23, 42, 0.14);
+  --ic-depth-deep: rgba(15, 23, 42, 0.15);
 }
 
+/* Same ancestry guard as the token block above — see the note there. */
 @media (prefers-color-scheme: light) {
-  :root:not([data-mui-color-scheme]):not([data-theme]) .ic-card {
+  :root:not([data-mui-color-scheme]):not([data-theme])
+    .ic-card:not([data-mui-color-scheme] *):not([data-theme] *) {
     --ic-glow-a: 0.2;
     --ic-glow-a-far: 0.06;
     --ic-glow-a-hover: 0.28;
+    --ic-depth-soft: rgba(15, 23, 42, 0.12);
     --ic-depth: rgba(15, 23, 42, 0.14);
+    --ic-depth-deep: rgba(15, 23, 42, 0.15);
   }
 }
 
@@ -221,11 +240,20 @@
 }
 /* Identity stays neutral — an outline or a focus ring in fg1 is what "no colour
    chosen" should look like. Interaction borrows cobalt, which is what the
-   pre-extraction card hovered with on every neutral surface. */
+   pre-extraction card hovered glass and surface with. */
 .ic-card[data-tone="neutral"] {
   --ic-ch: var(--ic-t-fg1-channel);
   --ic-grad: none;
   --ic-hover-ch: var(--ic-t-cobalt-channel);
+}
+
+/* …except elevated, which hovered violet. Not an inconsistency to tidy away:
+   elevated is the modal/popover level, and the hue is what separates "this
+   surface is on top of the page" from "this surface is part of it". A toned
+   elevated card still hovers in its own tone — only the no-tone-chosen default
+   differs from the other neutral fills. */
+.ic-card[data-tone="neutral"][data-fill="elevated"] {
+  --ic-hover-ch: var(--ic-t-electric-channel);
 }
 
 /* ── Axis: pad ────────────────────────────────────────────────────────────── */
@@ -333,7 +361,7 @@
   border-color: rgb(var(--ic-hover-ch) / 0.3);
   box-shadow:
     0 0 30px rgb(var(--ic-hover-ch) / 0.12),
-    0 10px 28px var(--ic-depth);
+    0 10px 28px var(--ic-depth-soft);
 }
 
 .ic-card[data-fill="elevated"][data-interactive]:hover,
@@ -341,7 +369,7 @@
   border-color: rgb(var(--ic-hover-ch) / 0.35);
   box-shadow:
     0 0 30px rgb(var(--ic-hover-ch) / 0.15),
-    0 14px 40px var(--ic-depth);
+    0 14px 40px var(--ic-depth-deep);
 }
 
 /* A gradient card is already its own hue, so hover deepens the halo it has

@@ -165,11 +165,16 @@ ${LIGHT_SELECTOR} .ic-card,
 ${lightBlock("  ")}
 }
 
-/* Same defaults for a host that ships no scheme attribute at all. Scoped to a
-   root carrying neither: without that guard, a host running dark mode on a
-   light-preference machine would pick these up. */
+/* Same defaults for a host that ships no scheme attribute at all. Without a
+   guard, a host running dark mode on a light-preference machine would pick
+   these up — so the rule is scoped to a card with no declared scheme ANYWHERE
+   above it, not merely to a bare :root. MUI puts its attribute on <html>, but
+   a scheme attribute is legal on any wrapper, and a per-subtree scheme is the
+   normal way to render a dark panel inside a light page. Checking :root alone
+   let every one of those cases fall through to the light tokens. */
 @media (prefers-color-scheme: light) {
-  :root:not([data-mui-color-scheme]):not([data-theme]) .ic-card {
+  :root:not([data-mui-color-scheme]):not([data-theme])
+    .ic-card:not([data-mui-color-scheme] *):not([data-theme] *) {
 ${lightBlock("    ")}
   }
 }
