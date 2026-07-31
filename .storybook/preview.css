@@ -1,0 +1,46 @@
+/* The live Obsidian token sheet, pulled in for the WORKSHOP ONLY.
+ *
+ * This file is Storybook scaffolding — it is not in `package.json#files` and
+ * never reaches a consumer. Importing the sheet here means the stories render
+ * against the real, current tokens instead of the vendored fallbacks baked into
+ * styles.css, so a token that changes upstream shows up in the docs site rather
+ * than hiding behind a stale copy.
+ *
+ * The shipped styles.css deliberately does NOT @import it: a CSS import is
+ * all-or-nothing and would hand every consumer the sheet's `body` rules, its
+ * Google Fonts request, and a CSP origin to allow. `pnpm sync:tokens` is how
+ * the sheet reaches the package. */
+@import url("https://cdn.thinktalentws48.click/starterkit/colors_and_type.css");
+
+:root {
+  color-scheme: light;
+  font-family: var(--font-body, "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif);
+}
+
+body {
+  margin: 0;
+  background:
+    linear-gradient(rgb(22 25 37 / 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(22 25 37 / 0.025) 1px, transparent 1px),
+    radial-gradient(circle at 8% 2%, rgb(179 211 53 / 0.13), transparent 27rem),
+    radial-gradient(circle at 92% 0%, rgb(0 138 255 / 0.09), transparent 24rem),
+    #f6f7f3;
+  background-size:
+    4rem 4rem,
+    4rem 4rem,
+    auto,
+    auto,
+    auto;
+}
+
+.sb-show-main.sb-main-padded {
+  padding: clamp(1rem, 4vw, 3rem);
+}
+
+.docs-story {
+  background: #f6f7f3;
+}
+
+.sbdocs-wrapper .sbdocs-content {
+  max-width: none;
+}

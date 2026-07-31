@@ -1,0 +1,70 @@
+{
+  "name": "@devopsnext/starterkit-card-component",
+  "version": "1.0.0",
+  "description": "Obsidian design-system Card — token-driven, CSS-styled, zero runtime dependencies.",
+  "license": "MIT",
+  "type": "module",
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "dist",
+    "styles.css",
+    "README.md"
+  ],
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./styles.css": "./styles.css"
+  },
+  "scripts": {
+    "build": "tsc --noEmit && tsup",
+    "build-storybook": "storybook build -o docs --disable-telemetry && node -e \"require('node:fs').writeFileSync('docs/.nojekyll', '')\"",
+    "dev": "tsup --watch",
+    "storybook": "storybook dev -p 6007 --no-open --disable-telemetry",
+    "sync:tokens": "node scripts/sync-tokens.mjs",
+    "sync:tokens:check": "node scripts/sync-tokens.mjs --check",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "verify": "pnpm typecheck && pnpm test && pnpm build"
+  },
+  "peerDependencies": {
+    "react": ">=18",
+    "react-dom": ">=18"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "^10.5.5",
+    "@storybook/addon-docs": "^10.5.5",
+    "@storybook/react-vite": "^10.5.5",
+    "@testing-library/dom": "^10.4.0",
+    "@testing-library/jest-dom": "6.9.1",
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "axe-core": "^4.10.3",
+    "jsdom": "^26.1.0",
+    "react": "19.2.6",
+    "react-dom": "19.2.6",
+    "storybook": "^10.5.5",
+    "tsup": "^8.5.0",
+    "typescript": "^5.9.2",
+    "vite": "^8.1.5",
+    "vitest": "^3.2.4"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "react",
+    "card",
+    "design-system",
+    "obsidian"
+  ]
+}
