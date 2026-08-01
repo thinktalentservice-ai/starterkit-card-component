@@ -23,6 +23,9 @@
     },
     "./styles.css": "./styles.css"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "tsc --noEmit && tsup",
     "build-storybook": "storybook build -o docs --disable-telemetry && node -e \"require('node:fs').writeFileSync('docs/.nojekyll', '')\"",
