@@ -23,18 +23,15 @@ const preview = {
     },
   },
   tags: ["autodocs"],
+  // Declared without a `toolbar` block on purpose: the control for this global
+  // is the one-click button registered in `.storybook/manager.tsx`. A dropdown
+  // AND a button for a two-value axis is two ways to say the same thing, and
+  // the one that disagrees with the canvas is the one nobody notices. The
+  // global itself stays declared so `?globals=scheme:dark` keeps working as a
+  // shareable link.
   globalTypes: {
     scheme: {
       description: "Colour scheme the cards render against",
-      toolbar: {
-        title: "Scheme",
-        icon: "mirror",
-        items: [
-          { value: "light", title: "Light", icon: "sun" },
-          { value: "dark", title: "Dark", icon: "moon" },
-        ],
-        dynamicTitle: true,
-      },
     },
   },
   // Light, matching the sibling component workshops — a reader moving between

@@ -6,8 +6,18 @@
 .ic-specimen {
   --specimen-ink: #161925;
   --specimen-muted: #686e86;
-  --specimen-line: rgb(22 25 37 / 0.1);
-  --specimen-stage: rgb(255 255 255 / 0.78);
+  /* The stage is deliberately NOT the near-white pedestal the sibling button
+     workshop uses. A button is opaque, so white behind it costs nothing. A
+     card's whole fill axis is how much of the backdrop survives — and upstream's
+     light tokens put glass at 72% white against a #ffffff surface, so on a white
+     pedestal glass and surface composite to the same pixel and the atlas shows
+     three identical rows. Slate at 0.92 is not a taste call: glass lands at
+     ~248, which is the midpoint between elevated (240) and surface (255) and
+     therefore the furthest any pedestal can push it from both. The grid is
+     stronger for the same reason — it is the only thing that reads THROUGH
+     glass, blurred, and not through the opaque fills at all. */
+  --specimen-line: rgb(22 25 37 / 0.18);
+  --specimen-stage: rgb(226 231 242 / 0.92);
   --specimen-code: #111520;
   --specimen-bg: rgb(255 255 255 / 0.72);
   --specimen-border: rgb(22 25 37 / 0.1);
@@ -36,8 +46,13 @@
 [data-theme="dark"] .ic-specimen {
   --specimen-ink: #f0f2ff;
   --specimen-muted: rgb(240 242 255 / 0.6);
-  --specimen-line: rgb(255 255 255 / 0.1);
-  --specimen-stage: rgb(7 8 15 / 0.32);
+  /* Same rule, mirrored: a stage darker than the page put the pedestal at the
+     fills' own luminance, where glass (3.5% white), surface (#10121c) and
+     elevated (#161925) all land within six levels of black. Lifting the stage
+     off the page instead of sinking it into the page is what gives glass
+     something to be translucent over. */
+  --specimen-line: rgb(255 255 255 / 0.14);
+  --specimen-stage: rgb(255 255 255 / 0.1);
   --specimen-code: rgb(7 8 15 / 0.72);
   --specimen-bg: rgb(255 255 255 / 0.045);
   --specimen-border: rgb(255 255 255 / 0.11);
