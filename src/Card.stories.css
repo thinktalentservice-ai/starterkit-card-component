@@ -8,7 +8,7 @@
   --story-ink-2: #20243a;
   --story-body: #626984;
   --story-muted: #515875;
-  --story-eyebrow: #6b7d20;
+  --story-eyebrow: #838c5d;
   --story-line: rgb(22 25 37 / 0.12);
   --story-chip-bg: rgb(255 255 255 / 0.72);
   --story-chip-line: rgb(22 25 37 / 0.1);
@@ -23,7 +23,7 @@
   --story-ink-2: rgb(240 242 255 / 0.92);
   --story-body: rgb(240 242 255 / 0.58);
   --story-muted: rgb(240 242 255 / 0.62);
-  --story-eyebrow: var(--mint, #b3d335);
+  --story-eyebrow: var(--accent, #d0e28c);
   --story-line: rgb(255 255 255 / 0.1);
   --story-chip-bg: rgb(255 255 255 / 0.06);
   --story-chip-line: rgb(255 255 255 / 0.12);
@@ -47,7 +47,7 @@
   width: 3.5rem;
   height: 0.22rem;
   content: "";
-  background: linear-gradient(90deg, var(--mint, #b3d335) 70%, var(--cobalt, #008aff) 70%);
+  background: linear-gradient(90deg, var(--accent, #d0e28c) 70%, var(--primary, #0099ff) 70%);
   border-radius: 999px;
 }
 

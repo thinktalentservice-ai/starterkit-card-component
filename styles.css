@@ -47,24 +47,44 @@
   --ic-t-surface: var(--surface, #10121c);
   --ic-t-surface-elevated: var(--surface-elevated, #161925);
   --ic-t-fg1: var(--fg1, #f0f2ff);
+  --ic-t-primary: var(--primary, #0099ff);
+  --ic-t-primary-on-solid: var(--primary-on-solid, #0b0f19);
+  --ic-t-primary-bg: var(--primary-bg, rgba(0, 153, 255, 0.14));
+  --ic-t-primary-channel: var(--primary-channel, 0 153 255);
+  --ic-t-secondary: var(--secondary, #64748b);
+  --ic-t-secondary-on-solid: var(--secondary-on-solid, #ffffff);
+  --ic-t-secondary-bg: var(--secondary-bg, rgba(100, 116, 139, 0.14));
+  --ic-t-secondary-channel: var(--secondary-channel, 100 116 139);
+  --ic-t-accent: var(--accent, #d0e28c);
+  --ic-t-accent-on-solid: var(--accent-on-solid, #0b0f19);
+  --ic-t-accent-bg: var(--accent-bg, rgba(208, 226, 140, 0.14));
+  --ic-t-accent-channel: var(--accent-channel, 208 226 140);
+  --ic-t-success: var(--success, #10b981);
+  --ic-t-success-on-solid: var(--success-on-solid, #0b0f19);
+  --ic-t-success-bg: var(--success-bg, rgba(16, 185, 129, 0.14));
+  --ic-t-success-channel: var(--success-channel, 16 185 129);
+  --ic-t-warning: var(--warning, #f59e0b);
+  --ic-t-warning-on-solid: var(--warning-on-solid, #0b0f19);
+  --ic-t-warning-bg: var(--warning-bg, rgba(245, 158, 11, 0.14));
+  --ic-t-warning-channel: var(--warning-channel, 245 158 11);
+  --ic-t-danger: var(--danger, #f43f5e);
+  --ic-t-danger-on-solid: var(--danger-on-solid, #0b0f19);
+  --ic-t-danger-bg: var(--danger-bg, rgba(244, 63, 94, 0.14));
+  --ic-t-danger-channel: var(--danger-channel, 244 63 94);
   --ic-t-border: var(--border, rgba(255, 255, 255, 0.08));
   --ic-t-glass-border: var(--glass-border, rgba(255, 255, 255, 0.09));
   --ic-t-glass-bg: var(--glass-bg, rgba(255, 255, 255, 0.035));
   --ic-t-radius-card: var(--radius-card, 20px);
   --ic-t-shadow-card: var(--shadow-card, 0 0 0 1px rgba(255, 255, 255, 0.03), 0 4px 24px rgba(0, 0, 0, 0.30));
   --ic-t-shadow-elevated: var(--shadow-elevated, 0 0 0 1px rgba(255, 255, 255, 0.05), 0 14px 44px rgba(0, 0, 0, 0.48));
+  --ic-t-gradient-primary: var(--gradient-primary, linear-gradient(135deg, var(--primary-solid, #0099ff), var(--primary-solid-hover, #018eed)));
+  --ic-t-gradient-secondary: var(--gradient-secondary, linear-gradient(135deg, var(--secondary-solid, #64748b), var(--secondary-solid-hover, #5d6c82)));
+  --ic-t-gradient-accent: var(--gradient-accent, linear-gradient(135deg, var(--accent-solid, #d0e28c), var(--accent-solid-hover, #c0d183)));
+  --ic-t-gradient-success: var(--gradient-success, linear-gradient(135deg, var(--success-solid, #10b981), var(--success-solid-hover, #10ab79)));
+  --ic-t-gradient-warning: var(--gradient-warning, linear-gradient(135deg, var(--warning-solid, #f59e0b), var(--warning-solid-hover, #e2930c)));
+  --ic-t-gradient-danger: var(--gradient-danger, linear-gradient(135deg, var(--danger-solid, #f43f5e), var(--danger-solid-hover, #e13b58)));
   --ic-t-ease-entrance: var(--ease-entrance, cubic-bezier(0.16, 1, 0.3, 1));
-  --ic-t-mint-channel: var(--mint-channel, 179 211 53);
-  --ic-t-electric-channel: var(--electric-channel, 139 92 246);
-  --ic-t-amber-channel: var(--amber-channel, 245 158 11);
-  --ic-t-rose-channel: var(--rose-channel, 244 63 94);
-  --ic-t-cobalt-channel: var(--cobalt-channel, 0 138 255);
   --ic-t-fg1-channel: var(--fg1-channel, 240 242 255);
-  --ic-t-gradient-mint: var(--gradient-mint, linear-gradient(145deg, var(--mint, #b3d335), var(--mint-dark, #8a9f2a)));
-  --ic-t-gradient-secondary: var(--gradient-secondary, linear-gradient(135deg, var(--electric, #8b5cf6), var(--electric-deep, #6d28d9)));
-  --ic-t-gradient-amber: var(--gradient-amber, linear-gradient(135deg, var(--amber-fill, #f59e0b), var(--amber-fill-end, #d97706)));
-  --ic-t-gradient-danger: var(--gradient-danger, linear-gradient(135deg, var(--rose, #f43f5e), var(--rose-deep, #e11d48)));
-  --ic-t-gradient-cobalt: var(--gradient-cobalt, linear-gradient(145deg, var(--cobalt-fill, #37a3fe), var(--cobalt-fill-end, #1f7bde)));
 }
 
 /* Light scheme. Surfaces invert and brand hues darken, so the channels flip with
@@ -74,18 +94,30 @@
   --ic-t-surface: var(--surface, #ffffff);
   --ic-t-surface-elevated: var(--surface-elevated, #f0f1f7);
   --ic-t-fg1: var(--fg1, #1a1d2e);
+  --ic-t-primary: var(--primary, #006cb2);
+  --ic-t-primary-bg: var(--primary-bg, rgba(0, 108, 178, 0.10));
+  --ic-t-primary-channel: var(--primary-channel, 0 108 178);
+  --ic-t-secondary: var(--secondary, #3e4959);
+  --ic-t-secondary-bg: var(--secondary-bg, rgba(62, 73, 89, 0.10));
+  --ic-t-secondary-channel: var(--secondary-channel, 62 73 89);
+  --ic-t-accent: var(--accent, #838c5d);
+  --ic-t-accent-bg: var(--accent-bg, rgba(131, 140, 93, 0.10));
+  --ic-t-accent-channel: var(--accent-channel, 131 140 93);
+  --ic-t-success: var(--success, #1d835a);
+  --ic-t-success-bg: var(--success-bg, rgba(29, 131, 90, 0.10));
+  --ic-t-success-channel: var(--success-channel, 29 131 90);
+  --ic-t-warning: var(--warning, #b57620);
+  --ic-t-warning-bg: var(--warning-bg, rgba(181, 118, 32, 0.10));
+  --ic-t-warning-channel: var(--warning-channel, 181 118 32);
+  --ic-t-danger: var(--danger, #a92b43);
+  --ic-t-danger-bg: var(--danger-bg, rgba(169, 43, 67, 0.10));
+  --ic-t-danger-channel: var(--danger-channel, 169 43 67);
   --ic-t-border: var(--border, rgba(0, 0, 0, 0.14));
   --ic-t-glass-border: var(--glass-border, rgba(0, 0, 0, 0.14));
   --ic-t-glass-bg: var(--glass-bg, rgba(255, 255, 255, 0.72));
   --ic-t-shadow-card: var(--shadow-card, 0 1px 2px rgba(15, 23, 42, 0.10), 0 6px 20px rgba(15, 23, 42, 0.10));
   --ic-t-shadow-elevated: var(--shadow-elevated, 0 2px 6px rgba(15, 23, 42, 0.12), 0 16px 40px rgba(15, 23, 42, 0.18));
-  --ic-t-mint-channel: var(--mint-channel, 107 125 32);
-  --ic-t-electric-channel: var(--electric-channel, 124 58 237);
-  --ic-t-amber-channel: var(--amber-channel, 217 119 6);
-  --ic-t-cobalt-channel: var(--cobalt-channel, 0 106 204);
   --ic-t-fg1-channel: var(--fg1-channel, 26 29 46);
-  --ic-t-gradient-mint: var(--gradient-mint, linear-gradient(145deg, var(--mint, #6b7d20), var(--mint-dark, #56631a)));
-  --ic-t-gradient-secondary: var(--gradient-secondary, linear-gradient(135deg, var(--electric, #7c3aed), var(--electric-deep, #5b21b6)));
 }
 
 /* Same defaults for a host that ships no scheme attribute at all. Without a
@@ -101,27 +133,41 @@
     --ic-t-surface: var(--surface, #ffffff);
     --ic-t-surface-elevated: var(--surface-elevated, #f0f1f7);
     --ic-t-fg1: var(--fg1, #1a1d2e);
+    --ic-t-primary: var(--primary, #006cb2);
+    --ic-t-primary-bg: var(--primary-bg, rgba(0, 108, 178, 0.10));
+    --ic-t-primary-channel: var(--primary-channel, 0 108 178);
+    --ic-t-secondary: var(--secondary, #3e4959);
+    --ic-t-secondary-bg: var(--secondary-bg, rgba(62, 73, 89, 0.10));
+    --ic-t-secondary-channel: var(--secondary-channel, 62 73 89);
+    --ic-t-accent: var(--accent, #838c5d);
+    --ic-t-accent-bg: var(--accent-bg, rgba(131, 140, 93, 0.10));
+    --ic-t-accent-channel: var(--accent-channel, 131 140 93);
+    --ic-t-success: var(--success, #1d835a);
+    --ic-t-success-bg: var(--success-bg, rgba(29, 131, 90, 0.10));
+    --ic-t-success-channel: var(--success-channel, 29 131 90);
+    --ic-t-warning: var(--warning, #b57620);
+    --ic-t-warning-bg: var(--warning-bg, rgba(181, 118, 32, 0.10));
+    --ic-t-warning-channel: var(--warning-channel, 181 118 32);
+    --ic-t-danger: var(--danger, #a92b43);
+    --ic-t-danger-bg: var(--danger-bg, rgba(169, 43, 67, 0.10));
+    --ic-t-danger-channel: var(--danger-channel, 169 43 67);
     --ic-t-border: var(--border, rgba(0, 0, 0, 0.14));
     --ic-t-glass-border: var(--glass-border, rgba(0, 0, 0, 0.14));
     --ic-t-glass-bg: var(--glass-bg, rgba(255, 255, 255, 0.72));
     --ic-t-shadow-card: var(--shadow-card, 0 1px 2px rgba(15, 23, 42, 0.10), 0 6px 20px rgba(15, 23, 42, 0.10));
     --ic-t-shadow-elevated: var(--shadow-elevated, 0 2px 6px rgba(15, 23, 42, 0.12), 0 16px 40px rgba(15, 23, 42, 0.18));
-    --ic-t-mint-channel: var(--mint-channel, 107 125 32);
-    --ic-t-electric-channel: var(--electric-channel, 124 58 237);
-    --ic-t-amber-channel: var(--amber-channel, 217 119 6);
-    --ic-t-cobalt-channel: var(--cobalt-channel, 0 106 204);
     --ic-t-fg1-channel: var(--fg1-channel, 26 29 46);
-    --ic-t-gradient-mint: var(--gradient-mint, linear-gradient(145deg, var(--mint, #6b7d20), var(--mint-dark, #56631a)));
-    --ic-t-gradient-secondary: var(--gradient-secondary, linear-gradient(135deg, var(--electric, #7c3aed), var(--electric-deep, #5b21b6)));
   }
 }
 /* @tokens:end */
 
-/* Glow and depth intensities. These are NOT tokens — the sheet's --glow-* and
-   --shadow-card-hover are per-hue constants (there is a --glow-cobalt and a
-   --glow-mint but no --glow-rose), and consuming them would put the card back
-   in the business of knowing which hue it is. The card derives every glow from
-   its own tone channel instead, which is what makes tone="danger" cost zero new
+/* Glow and depth intensities. These are NOT tokens — the sheet now ships a
+   glow constant per family (uniformly, one per role, unlike the old per-hue
+   set this used to be inconsistent about), but consuming it directly would
+   still put the card back in the business of knowing which family it is, and
+   `neutral` — a card state, not a family — has no such constant to reach for
+   at all. The card derives every glow from its own tone channel instead,
+   which is what makes tone="danger" (and neutral's hover glow) cost zero new
    CSS. Only the alpha is scheme-dependent: the same 0.35 that reads as a halo
    on the void surface reads as a smear on white.
 
@@ -176,6 +222,23 @@
      identity. It follows the tone by default; only `neutral` splits the two,
      because a grey hover on a grey card communicates nothing. */
   --ic-hover-ch: var(--ic-ch);
+  /* Label colour on a gradient fill. Overridden per tone with the family's
+     MEASURED --<f>-on-solid — legible on both the resting and hovered fill —
+     never a hardcoded white. This default only survives for a tone that sets
+     no ink of its own, which in practice is only `neutral`, and `neutral` never
+     reaches a gradient fill without hitting the surface-degrade rule below. */
+  --ic-ink: #fff;
+  /* The `outline` fill's resting border. Overridden per tone with the family's
+     own --<f> — the design system already measures that token to ~3:1 on
+     --surface, so it is used directly rather than an alpha guess. Neutral has
+     no family token, so it keeps the old alpha-from-channel formula. */
+  --ic-mark: rgb(var(--ic-ch) / 0.45);
+  /* Tinted background for the hover wash on glass/outline. Overridden per tone
+     with the family's own --<f>-bg — a real tinted-background token now,
+     rather than the hand-rolled `rgb(var(--ic-hover-ch) / 0.05)` this used to
+     be. Follows --ic-hover-ch's family, not --ic-ch's: a hover wash is
+     interaction feedback, same as the border and glow it accompanies. */
+  --ic-hover-bg: transparent;
 
   position: relative;
   /* Clips the accent strip to the corner radius. Also means a card cannot host
@@ -209,47 +272,78 @@
 }
 
 /* ── Axis: tone ───────────────────────────────────────────────────────────── */
-/* A tone publishes channels and a gradient, and styles nothing itself. Adding a
-   tone is one rule here and it composes with every fill for free — which is the
-   whole reason `danger` and `outline` exist at all: the old variant list had no
-   row for them, and the split made them free. */
+/* A tone publishes channels, a gradient, an ink and a border mark, and styles
+   nothing itself. Adding a tone is one rule here and it composes with every
+   fill for free — which is the whole reason `danger` and `outline` exist at
+   all: the old variant list had no row for them, and the split made them free.
 
-.ic-card[data-tone="mint"] {
-  --ic-ch: var(--ic-t-mint-channel);
-  --ic-grad: var(--ic-t-gradient-mint);
+   Renamed from hue words (mint/violet/amber/blue) to the semantic roles
+   `@devopsnext/starterkit-theme` now ships (primary/secondary/accent/success/
+   warning/danger) — every mint-, cobalt-, electric-, amber- and rose-prefixed
+   custom property is gone from the token ABI, no same-named replacement.
+   `accent` and `success` are new tones; nothing in the old hue list mapped
+   onto them. */
+
+.ic-card[data-tone="primary"] {
+  --ic-ch: var(--ic-t-primary-channel);
+  --ic-grad: var(--ic-t-gradient-primary);
+  --ic-ink: var(--ic-t-primary-on-solid);
+  --ic-mark: var(--ic-t-primary);
+  --ic-hover-bg: var(--ic-t-primary-bg);
 }
-.ic-card[data-tone="violet"] {
-  --ic-ch: var(--ic-t-electric-channel);
+.ic-card[data-tone="secondary"] {
+  --ic-ch: var(--ic-t-secondary-channel);
   --ic-grad: var(--ic-t-gradient-secondary);
+  --ic-ink: var(--ic-t-secondary-on-solid);
+  --ic-mark: var(--ic-t-secondary);
+  --ic-hover-bg: var(--ic-t-secondary-bg);
 }
-.ic-card[data-tone="amber"] {
-  --ic-ch: var(--ic-t-amber-channel);
-  --ic-grad: var(--ic-t-gradient-amber);
+.ic-card[data-tone="accent"] {
+  --ic-ch: var(--ic-t-accent-channel);
+  --ic-grad: var(--ic-t-gradient-accent);
+  --ic-ink: var(--ic-t-accent-on-solid);
+  --ic-mark: var(--ic-t-accent);
+  --ic-hover-bg: var(--ic-t-accent-bg);
+}
+.ic-card[data-tone="success"] {
+  --ic-ch: var(--ic-t-success-channel);
+  --ic-grad: var(--ic-t-gradient-success);
+  --ic-ink: var(--ic-t-success-on-solid);
+  --ic-mark: var(--ic-t-success);
+  --ic-hover-bg: var(--ic-t-success-bg);
+}
+.ic-card[data-tone="warning"] {
+  --ic-ch: var(--ic-t-warning-channel);
+  --ic-grad: var(--ic-t-gradient-warning);
+  --ic-ink: var(--ic-t-warning-on-solid);
+  --ic-mark: var(--ic-t-warning);
+  --ic-hover-bg: var(--ic-t-warning-bg);
 }
 .ic-card[data-tone="danger"] {
-  --ic-ch: var(--ic-t-rose-channel);
+  --ic-ch: var(--ic-t-danger-channel);
   --ic-grad: var(--ic-t-gradient-danger);
-}
-.ic-card[data-tone="blue"] {
-  --ic-ch: var(--ic-t-cobalt-channel);
-  --ic-grad: var(--ic-t-gradient-cobalt);
+  --ic-ink: var(--ic-t-danger-on-solid);
+  --ic-mark: var(--ic-t-danger);
+  --ic-hover-bg: var(--ic-t-danger-bg);
 }
 /* Identity stays neutral — an outline or a focus ring in fg1 is what "no colour
-   chosen" should look like. Interaction borrows cobalt, which is what the
-   pre-extraction card hovered glass and surface with. */
+   chosen" should look like. Interaction borrows primary, which is what the
+   pre-extraction card hovered glass and surface with (cobalt, pre-rename). */
 .ic-card[data-tone="neutral"] {
   --ic-ch: var(--ic-t-fg1-channel);
   --ic-grad: none;
-  --ic-hover-ch: var(--ic-t-cobalt-channel);
+  --ic-hover-ch: var(--ic-t-primary-channel);
+  --ic-hover-bg: var(--ic-t-primary-bg);
 }
 
-/* …except elevated, which hovered violet. Not an inconsistency to tidy away:
-   elevated is the modal/popover level, and the hue is what separates "this
-   surface is on top of the page" from "this surface is part of it". A toned
-   elevated card still hovers in its own tone — only the no-tone-chosen default
-   differs from the other neutral fills. */
+/* …except elevated, which hovered violet (now secondary). Not an inconsistency
+   to tidy away: elevated is the modal/popover level, and the hue is what
+   separates "this surface is on top of the page" from "this surface is part
+   of it". A toned elevated card still hovers in its own tone — only the
+   no-tone-chosen default differs from the other neutral fills. */
 .ic-card[data-tone="neutral"][data-fill="elevated"] {
-  --ic-hover-ch: var(--ic-t-electric-channel);
+  --ic-hover-ch: var(--ic-t-secondary-channel);
+  --ic-hover-bg: var(--ic-t-secondary-bg);
 }
 
 /* ── Axis: pad ────────────────────────────────────────────────────────────── */
@@ -300,14 +394,12 @@
 .ic-card[data-fill="gradient"] {
   background: var(--ic-grad);
   border-color: rgb(var(--ic-ch) / 0.5);
-  /* White is the design system's own choice on these gradients (the starterkit's
-     featured card has always been white-on-cobalt) and it is what the brand
-     hues were picked against — but it is NOT a 4.5:1 guarantee. A saturated
-     gradient spans two luminances, and white over the light end of mint or
-     amber lands near 3:1. Gradient fills are for headings and short labels, not
-     body copy; `--ic-on-grad` is here so a consumer who needs body copy on one
-     can flip the label to ink without restyling the fill. */
-  color: var(--ic-on-grad, #fff);
+  /* `--ic-ink` is the tone's `--<f>-on-solid` — the design system's own MEASURED
+     ink, legible on both the resting and hovered fill, never a hardcoded white.
+     `--ic-on-grad` stays as the documented escape hatch: a consumer who wants
+     something other than the measured ink (e.g. body copy needs a different
+     contrast strategy than a heading) can still override it directly. */
+  color: var(--ic-on-grad, var(--ic-ink));
   box-shadow:
     0 0 20px rgb(var(--ic-ch) / var(--ic-glow-a)),
     0 0 60px rgb(var(--ic-ch) / var(--ic-glow-a-far));
@@ -326,7 +418,9 @@
 
 .ic-card[data-fill="outline"] {
   background: transparent;
-  border-color: rgb(var(--ic-ch) / 0.45);
+  /* `--ic-mark` is the tone's own --<f> — already measured to ~3:1 on
+     --surface, used directly rather than an alpha guess computed here. */
+  border-color: var(--ic-mark);
   box-shadow: none;
 }
 
@@ -346,7 +440,9 @@
 .ic-card[data-fill="glass"][data-interactive]:hover,
 .ic-card[data-fill="glass"][data-interactive]:focus-visible {
   border-color: rgb(var(--ic-hover-ch) / 0.35);
-  background: rgb(var(--ic-hover-ch) / 0.05);
+  /* --ic-hover-bg is the interaction family's own --<f>-bg — a real tinted-
+     background token, not a hand-rolled alpha wash off the channel. */
+  background: var(--ic-hover-bg);
   box-shadow:
     0 0 40px rgb(var(--ic-hover-ch) / 0.15),
     0 10px 32px var(--ic-depth);
@@ -380,7 +476,7 @@
 .ic-card[data-fill="outline"][data-interactive]:hover,
 .ic-card[data-fill="outline"][data-interactive]:focus-visible {
   border-color: rgb(var(--ic-ch) / 0.7);
-  background: rgb(var(--ic-hover-ch) / 0.06);
+  background: var(--ic-hover-bg);
 }
 
 /* ── Accent strip ─────────────────────────────────────────────────────────── */
@@ -399,9 +495,10 @@
 
 /* ── Focus ────────────────────────────────────────────────────────────────── */
 /* :focus-visible, not :focus — a mouse click on a clickable card must not leave
-   a ring, and a keyboard user must always get one. Gradient fills ring in white
-   because a cobalt ring on a cobalt gradient is invisible; the 2px offset puts
-   it on the page background either way. */
+   a ring, and a keyboard user must always get one. A toned gradient rings in
+   its own measured ink (`--ic-ink`) because a same-hue ring on a same-hue
+   gradient is invisible; the 2px offset puts it on the page background
+   either way. */
 
 .ic-card:focus-visible {
   outline: 2px solid var(--ic-card-focus-ring, rgb(var(--ic-hover-ch)));
@@ -409,7 +506,7 @@
 }
 
 .ic-card[data-fill="gradient"]:not([data-tone="neutral"]):focus-visible {
-  outline-color: var(--ic-card-focus-ring, #fff);
+  outline-color: var(--ic-card-focus-ring, var(--ic-ink));
 }
 
 /* ── Disabled ─────────────────────────────────────────────────────────────── */

@@ -14,8 +14,8 @@ describe("formatCardSnippet", () => {
   });
 
   it("emits props in a stable order, not insertion order", () => {
-    expect(formatCardSnippet({ fill: "gradient", tone: "mint", children: "mint" })).toBe(
-      '<Card tone="mint" fill="gradient">mint</Card>',
+    expect(formatCardSnippet({ fill: "gradient", tone: "accent", children: "accent" })).toBe(
+      '<Card tone="accent" fill="gradient">accent</Card>',
     );
   });
 
@@ -27,8 +27,8 @@ describe("formatCardSnippet", () => {
 
   it("keeps href with the other string props", () => {
     expect(
-      formatCardSnippet({ href: "#link", tone: "blue", fill: "outline", children: "Anchor" }),
-    ).toBe('<Card tone="blue" fill="outline" href="#link">Anchor</Card>');
+      formatCardSnippet({ href: "#link", tone: "primary", fill: "outline", children: "Anchor" }),
+    ).toBe('<Card tone="primary" fill="outline" href="#link">Anchor</Card>');
   });
 
   it("prints preset, pad and accent", () => {
@@ -41,22 +41,22 @@ describe("formatCardSnippet", () => {
 describe("Swatch", () => {
   it("renders the real Card for the props it prints", () => {
     render(
-      <Swatch tone="violet" fill="outline" pad="sm">
-        violet
+      <Swatch tone="secondary" fill="outline" pad="sm">
+        secondary
       </Swatch>,
     );
-    const card = screen.getByText("violet");
-    expect(card.getAttribute("data-tone")).toBe("violet");
+    const card = screen.getByText("secondary");
+    expect(card.getAttribute("data-tone")).toBe("secondary");
     expect(card.getAttribute("data-fill")).toBe("outline");
     expect(card.getAttribute("data-pad")).toBe("sm");
     expect(
-      screen.getByText('<Card tone="violet" fill="outline" pad="sm">violet</Card>'),
+      screen.getByText('<Card tone="secondary" fill="outline" pad="sm">secondary</Card>'),
     ).toBeInTheDocument();
   });
 
   it("renders an anchor when href is set", () => {
     render(
-      <Swatch href="#somewhere" tone="blue">
+      <Swatch href="#somewhere" tone="primary">
         Anchor
       </Swatch>,
     );
@@ -67,10 +67,10 @@ describe("Swatch", () => {
     const writeText = vi.fn().mockResolvedValue(undefined);
     Object.assign(navigator, { clipboard: { writeText } });
 
-    render(<Swatch tone="amber">Ship</Swatch>);
+    render(<Swatch tone="warning">Ship</Swatch>);
     fireEvent.click(screen.getByRole("button", { name: /copy/i }));
 
-    expect(writeText).toHaveBeenCalledWith('<Card tone="amber">Ship</Card>');
+    expect(writeText).toHaveBeenCalledWith('<Card tone="warning">Ship</Card>');
     expect(await screen.findByText(/^Copied$/)).toBeInTheDocument();
   });
 });

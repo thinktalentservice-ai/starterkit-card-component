@@ -36,9 +36,9 @@ describe("axis resolution", () => {
   });
 
   it("produces identical axes for a preset and its explicit equivalent", () => {
-    const { container: viaPreset } = render(<Card variant="cobalt">A</Card>);
+    const { container: viaPreset } = render(<Card variant="primary">A</Card>);
     const { container: viaAxes } = render(
-      <Card tone="blue" fill="gradient">
+      <Card tone="primary" fill="gradient">
         A
       </Card>,
     );
@@ -47,7 +47,7 @@ describe("axis resolution", () => {
 
   it("lets an explicit axis override the preset", () => {
     const { container } = render(
-      <Card variant="cobalt" tone="danger">
+      <Card variant="primary" tone="danger">
         A
       </Card>,
     );
@@ -109,9 +109,9 @@ describe("accent", () => {
   // The strip is drawn by CSS from --ic-accent; the component's only job is to
   // publish the custom property and flag the element for the ::before rule.
   it("publishes the colour as a custom property and flags the element", () => {
-    const { container } = render(<Card accent="var(--cobalt)">A</Card>);
+    const { container } = render(<Card accent="var(--primary)">A</Card>);
     expect(cardIn(container)).toHaveAttribute("data-accent");
-    expect(cardIn(container).style.getPropertyValue("--ic-accent")).toBe("var(--cobalt)");
+    expect(cardIn(container).style.getPropertyValue("--ic-accent")).toBe("var(--primary)");
   });
 
   it("does not flag a card without an accent", () => {
@@ -309,7 +309,15 @@ describe("accessibility", () => {
    * role/name/aria-state breakage across the whole axis matrix.
    */
   it("reports no axe violations across the axis matrix", async () => {
-    const tones = ["mint", "violet", "amber", "danger", "blue", "neutral"] as const;
+    const tones = [
+      "primary",
+      "secondary",
+      "accent",
+      "success",
+      "warning",
+      "danger",
+      "neutral",
+    ] as const;
     const fills = ["glass", "surface", "elevated", "gradient", "outline"] as const;
 
     const { container } = render(
