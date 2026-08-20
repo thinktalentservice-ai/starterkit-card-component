@@ -5,7 +5,15 @@ import type { CardFill, CardPad, CardPreset, CardTone } from "./index";
 import { Swatch } from "./stories/CodeSwatch";
 import "./Card.stories.css";
 
-const tones: CardTone[] = ["mint", "violet", "amber", "danger", "blue", "neutral"];
+const tones: CardTone[] = [
+  "primary",
+  "secondary",
+  "accent",
+  "success",
+  "warning",
+  "danger",
+  "neutral",
+];
 const fills: CardFill[] = ["glass", "surface", "elevated", "gradient", "outline"];
 const pads: CardPad[] = ["none", "sm", "md", "lg"];
 const presets = Object.keys(PRESETS) as CardPreset[];
@@ -161,7 +169,7 @@ export const Presets: Story = {
   render: () => (
     <StoryFrame
       title="Preset index"
-      description="The seven names the starterkit's own Card shipped, plus the two the axis split made free. Convenience aliases only — never a separate styling API."
+      description="glass/surface/elevated/outline/danger are the starterkit's own old Card values; primary/secondary/accent/success/warning are the roles the new token ABI defines. Convenience aliases only — never a separate styling API."
     >
       <Section
         title="Named presets"
@@ -285,10 +293,10 @@ export const OnAColouredSurface: Story = {
             <Swatch fill="glass" inverse interactive>
               Glass
             </Swatch>
-            <Swatch fill="outline" tone="mint" inverse interactive>
+            <Swatch fill="outline" tone="accent" inverse interactive>
               Outline
             </Swatch>
-            <Swatch fill="gradient" tone="blue" inverse interactive>
+            <Swatch fill="gradient" tone="primary" inverse interactive>
               Gradient
             </Swatch>
           </div>
@@ -317,14 +325,14 @@ export const Composition: Story = {
             <p className="ic-demo-value">$48.2k</p>
             <p className="ic-demo-sub">vs $41.9k last month</p>
           </Card>
-          <Card fill="gradient" tone="blue">
+          <Card fill="gradient" tone="primary">
             <p className="ic-demo-eyebrow">Featured</p>
             <p className="ic-demo-title">Automated reconciliation</p>
             <p className="ic-demo-body">
               Matches ledger entries against settlement files, then flags only what disagrees.
             </p>
           </Card>
-          <Card as="article" fill="outline" tone="mint" interactive>
+          <Card as="article" fill="outline" tone="accent" interactive>
             <p className="ic-demo-eyebrow">Semantic</p>
             <p className="ic-demo-title">as=&quot;article&quot;</p>
             <p className="ic-demo-body">
