@@ -4,9 +4,21 @@
    Storybook's own copy rather than pulling a second one into the bundle. */
 import React from "react";
 import { addons, types, useGlobals } from "storybook/manager-api";
-import { IconButton } from "storybook/internal/components";
+import { ToggleButton } from "storybook/internal/components";
 
 const ADDON_ID = "ic/scheme-toggle";
+const BRAND_ADDON_ID = "ic/brand-toggle";
+
+/* The two presets starterkit-theme ships (PRESET_IDS), with each one's
+   `--primary` seed. The manager is its own bundle and never loads the preview's
+   stylesheets, so the swatch colour cannot be read from a token here — these
+   are literals, copied from presets/<id>.css, and they are the only place in
+   this repo where a brand hex is hand-written. A third preset would be added
+   here, in preview.tsx, and in scripts/gen-brands.mjs. */
+const BRANDS = [
+  { id: "think", label: "Think", seed: "#0099FF" },
+  { id: "elemetrik", label: "Elemetrik", seed: "#6832FF" },
+] as const;
 
 /* Sun and moon are drawn here rather than imported from @storybook/icons.
    That package ships with Storybook as a TRANSITIVE dependency, so under
@@ -39,16 +51,72 @@ const SchemeToggle = () => {
   const dark = globals.scheme === "dark";
 
   return (
-    <IconButton
-      active={dark}
-      title={dark ? "Switch to light scheme" : "Switch to dark scheme"}
+    <ToggleButton
+      pressed={dark}
+      ariaLabel={false}
+      tooltip={dark ? "Switch to light scheme" : "Switch to dark scheme"}
       onClick={() => updateGlobals({ scheme: dark ? "light" : "dark" })}
     >
       {dark ? <Moon /> : <Sun />}
       <span style={{ marginLeft: 6 }}>{dark ? "Dark" : "Light"}</span>
-    </IconButton>
+    </ToggleButton>
   );
 };
+
+/* A filled circle rather than a letter or an icon: the whole point of the brand
+   axis is the colour, so the control shows the colour. Rendered from the seed
+   hex above, not from a token — see the note on BRANDS. */
+const Dot = ({ seed }: { seed: string }) => (
+  <span
+    aria-hidden
+    style={{
+      width: 10,
+      height: 10,
+      borderRadius: "50%",
+      background: seed,
+      display: "inline-block",
+      /* The seeds are saturated enough to vanish against Storybook's own dark
+         chrome at this size; a hairline keeps the edge readable in both. */
+      boxShadow: "inset 0 0 0 1px rgb(0 0 0 / 0.25)",
+    }}
+  />
+);
+
+/* Two brands, so this is a toggle rather than a dropdown — same shape as the
+   scheme control, and the same reasoning: a menu for a binary choice costs a
+   click to tell you what a label already says. It cycles rather than selects,
+   which stops reading as "pick one" the moment a third preset ships; that is
+   the point at which this should become a WithTooltip/TooltipLinkList. */
+const BrandToggle = () => {
+  const [globals, updateGlobals] = useGlobals();
+  const index = Math.max(
+    0,
+    BRANDS.findIndex((brand) => brand.id === globals.brand),
+  );
+  const current = BRANDS[index];
+  const next = BRANDS[(index + 1) % BRANDS.length];
+
+  return (
+    <ToggleButton
+      pressed={current.id !== BRANDS[0].id}
+      ariaLabel={false}
+      tooltip={`Switch to the ${next.label} brand`}
+      onClick={() => updateGlobals({ brand: next.id })}
+    >
+      <Dot seed={current.seed} />
+      <span style={{ marginLeft: 6 }}>{current.label}</span>
+    </ToggleButton>
+  );
+};
+
+addons.register(BRAND_ADDON_ID, () => {
+  addons.add(BRAND_ADDON_ID, {
+    type: types.TOOL,
+    title: "Brand",
+    match: ({ tabId, viewMode }) => !tabId && (viewMode === "story" || viewMode === "docs"),
+    render: () => <BrandToggle />,
+  });
+});
 
 addons.register(ADDON_ID, () => {
   addons.add(ADDON_ID, {

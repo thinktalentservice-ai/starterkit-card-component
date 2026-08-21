@@ -18,6 +18,22 @@ const fills: CardFill[] = ["glass", "surface", "elevated", "gradient", "outline"
 const pads: CardPad[] = ["none", "sm", "md", "lg"];
 const presets = Object.keys(PRESETS) as CardPreset[];
 
+/* Hand-synced with starterkit-theme's PRESET_IDS, the same way
+   .storybook/manager.tsx and scripts/gen-brands.mjs are. Only BrandComparison
+   reads this; every other story follows the Brand toolbar instead. */
+const brands = [
+  { id: "think", label: "Think" },
+  { id: "elemetrik", label: "Elemetrik" },
+] as const;
+
+/* BrandComparison shows two columns rather than the full 35-cell atlas twice.
+   `neutral` is left out because it is the one tone with no brand identity —
+   it draws from --fg1-channel, so its column would be identical either side
+   and would dilute the comparison. Gradient and outline are the two fills that
+   put a role token on screen at full strength. */
+const comparisonTones = tones.filter((tone) => tone !== "neutral");
+const comparisonFills: CardFill[] = ["gradient", "outline"];
+
 function Section({
   title,
   description,
@@ -169,7 +185,7 @@ export const Presets: Story = {
   render: () => (
     <StoryFrame
       title="Preset index"
-      description="glass/surface/elevated/outline/danger are the starterkit's own old Card values; primary/secondary/accent/success/warning are the roles the new token ABI defines. Convenience aliases only — never a separate styling API."
+      description="Four structural presets — glass/surface/elevated/outline — plus exactly one per token role. Convenience aliases only, never a separate styling API: each resolves to a point in tone × fill space and nothing else."
     >
       <Section
         title="Named presets"
@@ -191,7 +207,7 @@ export const AxisMatrix: Story = {
   render: () => (
     <StoryFrame
       title="Tone × fill atlas"
-      description="Every surface treatment against every colour identity. The old variant list could only reach the diagonal."
+      description="Every surface treatment against every colour identity. The axes are orthogonal, so all 35 cells are reachable — a named preset is just one of them."
     >
       {fills.map((fill) => (
         <Section
@@ -260,17 +276,17 @@ export const States: Story = {
       </Section>
       <Section
         title="Accent strip"
-        description="Drawn as a pseudo-element so a hover border-color change cannot wipe it."
+        description="Drawn as a pseudo-element so a hover border-color change cannot wipe it. `accent` takes any CSS colour string — point it at a role token to follow the Brand toolbar, or pass a literal when the colour is the point."
       >
         <div className="ic-story-grid">
-          <Swatch fill="glass" accent="#4DB3FF" interactive>
-            Cobalt accent
+          <Swatch fill="glass" accent="var(--primary)" interactive>
+            Primary accent
           </Swatch>
-          <Swatch fill="glass" accent="#B3D335" interactive>
-            Mint accent
+          <Swatch fill="glass" accent="var(--accent)" interactive>
+            Accent role
           </Swatch>
           <Swatch fill="surface" accent="#f43f5e" noBorder>
-            Accent, no border
+            Any CSS colour
           </Swatch>
         </div>
       </Section>
@@ -320,7 +336,7 @@ export const Composition: Story = {
     >
       <Section title="Built from the primitive">
         <div className="ic-story-grid">
-          <Card fill="glass" accent="#4DB3FF" interactive>
+          <Card fill="glass" accent="var(--primary)" interactive>
             <p className="ic-demo-eyebrow">Monthly recurring</p>
             <p className="ic-demo-value">$48.2k</p>
             <p className="ic-demo-sub">vs $41.9k last month</p>
@@ -344,4 +360,72 @@ export const Composition: Story = {
       </Section>
     </StoryFrame>
   ),
+};
+
+export const BrandComparison: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Both brand presets at once, at whichever scheme the toolbar is set to. " +
+          "The Brand toggle switches the rest of the workshop; this story is the one " +
+          "place you can see the delta without flipping back and forth.",
+      },
+    },
+  },
+  /* Plain <Card> rather than <Swatch> here, deliberately: a Swatch prints the
+     JSX that produced it, and the JSX for these specimens is identical across
+     both columns — the whole difference lives in the wrapper's data-brand. A
+     copyable snippet that omits the only thing being demonstrated would be
+     worse than no snippet. Every other story keeps its Swatches. */
+  render: (_args, { globals }) => {
+    const scheme = globals.scheme === "dark" ? "dark" : "light";
+
+    return (
+      <StoryFrame
+        title="Brand comparison"
+        description="The same cards under both starterkit-theme presets, side by side at the current scheme."
+      >
+        <Section
+          title={`Think vs Elemetrik — ${scheme} scheme`}
+          description="Watch the gradient row: its label ink is dark under Think and white under Elemetrik, because --<role>-on-solid is measured per brand rather than assumed."
+        >
+          <div className="ic-story-brands">
+            {brands.map(({ id, label }) => (
+              /* Both attributes on THIS element, not split with an ancestor:
+                 brands.generated.css scopes each preset's light block as
+                 [data-brand="x"][data-mui-color-scheme="light"], a compound
+                 selector. A wrapper carrying only data-brand would inherit
+                 <html>'s light scheme yet match the brand's dark block, and
+                 the column would quietly render dark tokens on a light page. */
+              <div
+                key={id}
+                className="ic-story-brand"
+                data-brand={id}
+                data-mui-color-scheme={scheme}
+                data-theme={scheme}
+              >
+                <p className="ic-story-brand__label">
+                  <span className="ic-story-brand__dot" />
+                  {label}
+                </p>
+                {comparisonFills.map((fill) => (
+                  <div key={fill} className="ic-story-brand__row">
+                    <span className="ic-story-brand__fill">{fill}</span>
+                    <div className="ic-story-grid">
+                      {comparisonTones.map((tone) => (
+                        <Card key={tone} tone={tone} fill={fill} pad="sm">
+                          {tone}
+                        </Card>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </Section>
+      </StoryFrame>
+    );
+  },
 };

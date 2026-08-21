@@ -30,6 +30,8 @@
     "build": "tsc --noEmit && tsup",
     "build-storybook": "storybook build -o docs --disable-telemetry && node -e \"require('node:fs').writeFileSync('docs/.nojekyll', '')\"",
     "dev": "tsup --watch",
+    "gen:brands": "node scripts/gen-brands.mjs",
+    "gen:brands:check": "node scripts/gen-brands.mjs --check",
     "storybook": "storybook dev -p 6007 --no-open --disable-telemetry",
     "sync:tokens": "node scripts/sync-tokens.mjs",
     "sync:tokens:check": "node scripts/sync-tokens.mjs --check",
