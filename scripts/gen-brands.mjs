@@ -19,8 +19,10 @@
    it cannot resolve a `file:../starterkit-theme` devDependency — it would fail
    `pnpm install --frozen-lockfile` outright. So the output is committed, and
    `--check` is a LOCAL gate: it needs that sibling checkout to have anything
-   to compare against. Contrast `sync:tokens:check`, which reads a public CDN
-   URL and can therefore run anywhere.
+   to compare against. `sync:tokens:check` used to be the contrast — it read a
+   public CDN URL and could run anywhere — but that published sheet went stale
+   across the 2.0.0 rename, so it now reads the same sibling presets/ directory
+   and carries the same restriction. See that script's header.
 
    The output is workshop-only. It is not in package.json `files`, and the
    published component still ships zero brand dependency: styles.css keeps
@@ -175,13 +177,22 @@ ${END}
 const current = existsSync(TARGET) ? readFileSync(TARGET, "utf8") : "";
 const summary = brands.map((b) => `${b.id} (${b.dark.length}/${b.light.length})`).join(", ");
 
+/* `block` is built with \n, but git's core.autocrlf hands a Windows checkout
+   this file in CRLF — and then `block !== current` no matter what the brands
+   say, so `--check` reports drift that does not exist. It reads as up to date
+   today only because the committed copy is the one this script wrote; a fresh
+   clone would fail immediately. Adopt whatever the file already uses, and LF
+   when there is no file yet. Same fix, same reason, as sync-tokens.mjs. */
+const eol = current.includes("\r\n") ? "\r\n" : "\n";
+const output = block.replace(/\n/g, eol);
+
 if (process.argv.includes("--check")) {
-  if (block !== current) {
+  if (output !== current) {
     console.error(".storybook/brands.generated.css is stale — run `pnpm gen:brands`");
     process.exit(1);
   }
   console.log(`brands up to date: ${summary}`);
 } else {
-  writeFileSync(TARGET, block);
+  writeFileSync(TARGET, output);
   console.log(`generated ${summary} from ${sourceLabel} @ ${versions[0]}`);
 }
