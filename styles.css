@@ -59,14 +59,14 @@
   --ic-t-secondary-on-solid: var(--secondary-on-solid, #ffffff);
   --ic-t-secondary-bg: var(--secondary-bg, rgba(100, 116, 139, 0.14));
   --ic-t-secondary-channel: var(--secondary-channel, 100 116 139);
-  --ic-t-accent: var(--accent, #d0e28c);
+  --ic-t-accent: var(--accent, #b3d335);
   --ic-t-accent-on-solid: var(--accent-on-solid, #0b0f19);
-  --ic-t-accent-bg: var(--accent-bg, rgba(208, 226, 140, 0.14));
-  --ic-t-accent-channel: var(--accent-channel, 208 226 140);
-  --ic-t-success: var(--success, #10b981);
+  --ic-t-accent-bg: var(--accent-bg, rgba(179, 211, 53, 0.14));
+  --ic-t-accent-channel: var(--accent-channel, 179 211 53);
+  --ic-t-success: var(--success, #4caf50);
   --ic-t-success-on-solid: var(--success-on-solid, #0b0f19);
-  --ic-t-success-bg: var(--success-bg, rgba(16, 185, 129, 0.14));
-  --ic-t-success-channel: var(--success-channel, 16 185 129);
+  --ic-t-success-bg: var(--success-bg, rgba(76, 175, 80, 0.14));
+  --ic-t-success-channel: var(--success-channel, 76 175 80);
   --ic-t-warning: var(--warning, #f59e0b);
   --ic-t-warning-on-solid: var(--warning-on-solid, #0b0f19);
   --ic-t-warning-bg: var(--warning-bg, rgba(245, 158, 11, 0.14));
@@ -75,6 +75,18 @@
   --ic-t-danger-on-solid: var(--danger-on-solid, #0b0f19);
   --ic-t-danger-bg: var(--danger-bg, rgba(244, 63, 94, 0.14));
   --ic-t-danger-channel: var(--danger-channel, 244 63 94);
+  --ic-t-info: var(--info, #0078d4);
+  --ic-t-info-on-solid: var(--info-on-solid, #ffffff);
+  --ic-t-info-bg: var(--info-bg, rgba(0, 120, 212, 0.14));
+  --ic-t-info-channel: var(--info-channel, 0 120 212);
+  --ic-t-accent-green: var(--accent-green, #b3d335);
+  --ic-t-accent-green-on-solid: var(--accent-green-on-solid, #0b0f19);
+  --ic-t-accent-green-bg: var(--accent-green-bg, rgba(179, 211, 53, 0.14));
+  --ic-t-accent-green-channel: var(--accent-green-channel, 179 211 53);
+  --ic-t-accent-pink: var(--accent-pink, #ee4480);
+  --ic-t-accent-pink-on-solid: var(--accent-pink-on-solid, #0b0f19);
+  --ic-t-accent-pink-bg: var(--accent-pink-bg, rgba(238, 68, 128, 0.14));
+  --ic-t-accent-pink-channel: var(--accent-pink-channel, 238 68 128);
   --ic-t-border: var(--border, rgba(255, 255, 255, 0.08));
   --ic-t-glass-border: var(--glass-border, rgba(255, 255, 255, 0.09));
   --ic-t-glass-bg: var(--glass-bg, rgba(255, 255, 255, 0.035));
@@ -83,10 +95,13 @@
   --ic-t-shadow-elevated: var(--shadow-elevated, 0 0 0 1px rgba(255, 255, 255, 0.05), 0 14px 44px rgba(0, 0, 0, 0.48));
   --ic-t-gradient-primary: var(--gradient-primary, linear-gradient(135deg, var(--primary-solid, #0099ff), var(--primary-solid-hover, #018eed)));
   --ic-t-gradient-secondary: var(--gradient-secondary, linear-gradient(135deg, var(--secondary-solid, #64748b), var(--secondary-solid-hover, #5d6c82)));
-  --ic-t-gradient-accent: var(--gradient-accent, linear-gradient(135deg, var(--accent-solid, #d0e28c), var(--accent-solid-hover, #c0d183)));
-  --ic-t-gradient-success: var(--gradient-success, linear-gradient(135deg, var(--success-solid, #10b981), var(--success-solid-hover, #10ab79)));
+  --ic-t-gradient-accent: var(--gradient-accent, linear-gradient(135deg, var(--accent-solid, #b3d335), var(--accent-solid-hover, #a6c333)));
+  --ic-t-gradient-success: var(--gradient-success, linear-gradient(135deg, var(--success-solid, #4caf50), var(--success-solid-hover, #47a24c)));
   --ic-t-gradient-warning: var(--gradient-warning, linear-gradient(135deg, var(--warning-solid, #f59e0b), var(--warning-solid-hover, #e2930c)));
   --ic-t-gradient-danger: var(--gradient-danger, linear-gradient(135deg, var(--danger-solid, #f43f5e), var(--danger-solid-hover, #e13b58)));
+  --ic-t-gradient-info: var(--gradient-info, linear-gradient(135deg, var(--info-solid, #0078d4), var(--info-solid-hover, #0170c5)));
+  --ic-t-gradient-accent-green: var(--gradient-accent-green, linear-gradient(135deg, var(--accent-green-solid, #b3d335), var(--accent-green-solid-hover, #a6c333)));
+  --ic-t-gradient-accent-pink: var(--gradient-accent-pink, linear-gradient(135deg, var(--accent-pink-solid, #ee4480), var(--accent-pink-solid-hover, #dc4078)));
   --ic-t-ease-entrance: var(--ease-entrance, cubic-bezier(0.16, 1, 0.3, 1));
   --ic-t-fg1-channel: var(--fg1-channel, 240 242 255);
 }
@@ -104,18 +119,27 @@
   --ic-t-secondary: var(--secondary, #3e4959);
   --ic-t-secondary-bg: var(--secondary-bg, rgba(62, 73, 89, 0.10));
   --ic-t-secondary-channel: var(--secondary-channel, 62 73 89);
-  --ic-t-accent: var(--accent, #838c5d);
-  --ic-t-accent-bg: var(--accent-bg, rgba(131, 140, 93, 0.10));
-  --ic-t-accent-channel: var(--accent-channel, 131 140 93);
-  --ic-t-success: var(--success, #1d835a);
-  --ic-t-success-bg: var(--success-bg, rgba(29, 131, 90, 0.10));
-  --ic-t-success-channel: var(--success-channel, 29 131 90);
+  --ic-t-accent: var(--accent, #6c7d2c);
+  --ic-t-accent-bg: var(--accent-bg, rgba(108, 125, 44, 0.10));
+  --ic-t-accent-channel: var(--accent-channel, 108 125 44);
+  --ic-t-success: var(--success, #397a36);
+  --ic-t-success-bg: var(--success-bg, rgba(57, 122, 54, 0.10));
+  --ic-t-success-channel: var(--success-channel, 57 122 54);
   --ic-t-warning: var(--warning, #b57620);
   --ic-t-warning-bg: var(--warning-bg, rgba(181, 118, 32, 0.10));
   --ic-t-warning-channel: var(--warning-channel, 181 118 32);
   --ic-t-danger: var(--danger, #a92b43);
   --ic-t-danger-bg: var(--danger-bg, rgba(169, 43, 67, 0.10));
   --ic-t-danger-channel: var(--danger-channel, 169 43 67);
+  --ic-t-info: var(--info, #004e89);
+  --ic-t-info-bg: var(--info-bg, rgba(0, 78, 137, 0.10));
+  --ic-t-info-channel: var(--info-channel, 0 78 137);
+  --ic-t-accent-green: var(--accent-green, #6c7d2c);
+  --ic-t-accent-green-bg: var(--accent-green-bg, rgba(108, 125, 44, 0.10));
+  --ic-t-accent-green-channel: var(--accent-green-channel, 108 125 44);
+  --ic-t-accent-pink: var(--accent-pink, #a52f5a);
+  --ic-t-accent-pink-bg: var(--accent-pink-bg, rgba(165, 47, 90, 0.10));
+  --ic-t-accent-pink-channel: var(--accent-pink-channel, 165 47 90);
   --ic-t-border: var(--border, rgba(0, 0, 0, 0.14));
   --ic-t-glass-border: var(--glass-border, rgba(0, 0, 0, 0.14));
   --ic-t-glass-bg: var(--glass-bg, rgba(255, 255, 255, 0.72));
@@ -143,18 +167,27 @@
     --ic-t-secondary: var(--secondary, #3e4959);
     --ic-t-secondary-bg: var(--secondary-bg, rgba(62, 73, 89, 0.10));
     --ic-t-secondary-channel: var(--secondary-channel, 62 73 89);
-    --ic-t-accent: var(--accent, #838c5d);
-    --ic-t-accent-bg: var(--accent-bg, rgba(131, 140, 93, 0.10));
-    --ic-t-accent-channel: var(--accent-channel, 131 140 93);
-    --ic-t-success: var(--success, #1d835a);
-    --ic-t-success-bg: var(--success-bg, rgba(29, 131, 90, 0.10));
-    --ic-t-success-channel: var(--success-channel, 29 131 90);
+    --ic-t-accent: var(--accent, #6c7d2c);
+    --ic-t-accent-bg: var(--accent-bg, rgba(108, 125, 44, 0.10));
+    --ic-t-accent-channel: var(--accent-channel, 108 125 44);
+    --ic-t-success: var(--success, #397a36);
+    --ic-t-success-bg: var(--success-bg, rgba(57, 122, 54, 0.10));
+    --ic-t-success-channel: var(--success-channel, 57 122 54);
     --ic-t-warning: var(--warning, #b57620);
     --ic-t-warning-bg: var(--warning-bg, rgba(181, 118, 32, 0.10));
     --ic-t-warning-channel: var(--warning-channel, 181 118 32);
     --ic-t-danger: var(--danger, #a92b43);
     --ic-t-danger-bg: var(--danger-bg, rgba(169, 43, 67, 0.10));
     --ic-t-danger-channel: var(--danger-channel, 169 43 67);
+    --ic-t-info: var(--info, #004e89);
+    --ic-t-info-bg: var(--info-bg, rgba(0, 78, 137, 0.10));
+    --ic-t-info-channel: var(--info-channel, 0 78 137);
+    --ic-t-accent-green: var(--accent-green, #6c7d2c);
+    --ic-t-accent-green-bg: var(--accent-green-bg, rgba(108, 125, 44, 0.10));
+    --ic-t-accent-green-channel: var(--accent-green-channel, 108 125 44);
+    --ic-t-accent-pink: var(--accent-pink, #a52f5a);
+    --ic-t-accent-pink-bg: var(--accent-pink-bg, rgba(165, 47, 90, 0.10));
+    --ic-t-accent-pink-channel: var(--accent-pink-channel, 165 47 90);
     --ic-t-border: var(--border, rgba(0, 0, 0, 0.14));
     --ic-t-glass-border: var(--glass-border, rgba(0, 0, 0, 0.14));
     --ic-t-glass-bg: var(--glass-bg, rgba(255, 255, 255, 0.72));
@@ -329,6 +362,27 @@
   --ic-ink: var(--ic-t-danger-on-solid);
   --ic-mark: var(--ic-t-danger);
   --ic-hover-bg: var(--ic-t-danger-bg);
+}
+.ic-card[data-tone="info"] {
+  --ic-ch: var(--ic-t-info-channel);
+  --ic-grad: var(--ic-t-gradient-info);
+  --ic-ink: var(--ic-t-info-on-solid);
+  --ic-mark: var(--ic-t-info);
+  --ic-hover-bg: var(--ic-t-info-bg);
+}
+.ic-card[data-tone="accent-green"] {
+  --ic-ch: var(--ic-t-accent-green-channel);
+  --ic-grad: var(--ic-t-gradient-accent-green);
+  --ic-ink: var(--ic-t-accent-green-on-solid);
+  --ic-mark: var(--ic-t-accent-green);
+  --ic-hover-bg: var(--ic-t-accent-green-bg);
+}
+.ic-card[data-tone="accent-pink"] {
+  --ic-ch: var(--ic-t-accent-pink-channel);
+  --ic-grad: var(--ic-t-gradient-accent-pink);
+  --ic-ink: var(--ic-t-accent-pink-on-solid);
+  --ic-mark: var(--ic-t-accent-pink);
+  --ic-hover-bg: var(--ic-t-accent-pink-bg);
 }
 /* Identity stays neutral — an outline or a focus ring in fg1 is what "no colour
    chosen" should look like. Interaction borrows primary, which is what the

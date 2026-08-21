@@ -26,7 +26,7 @@ There is no variant lookup table. The pre-extraction card had one — `glass | s
 
 | Axis   | Values                                                              | Default   |
 | ------ | --------------------------------------------------------------------| --------- |
-| `tone` | `primary` `secondary` `accent` `success` `warning` `danger` `neutral` | `neutral` |
+| `tone` | `primary` `secondary` `accent` `success` `warning` `danger` `info` `accent-green` `accent-pink` `neutral` | `neutral` |
 | `fill` | `glass` `surface` `elevated` `gradient` `outline`                    | `glass`   |
 | `pad`  | `none` `sm` `md` `lg`                                                | `md`      |
 
@@ -40,20 +40,25 @@ One cell in the grid is not universal: `neutral` publishes no gradient, so `fill
 
 `variant` is a named alias for a point in axis space. It is a convenience layer, never a source of styling — `variant="primary"` and `tone="primary" fill="gradient"` produce byte-identical DOM. Explicit axis props win over the preset.
 
-| `variant`   | equals                        |
-| ----------- | ------------------------------|
-| `glass`     | `tone=neutral fill=glass`     |
-| `surface`   | `tone=neutral fill=surface`   |
-| `elevated`  | `tone=neutral fill=elevated`  |
-| `outline`   | `tone=neutral fill=outline`   |
-| `primary`   | `tone=primary fill=gradient`  |
-| `secondary` | `tone=secondary fill=gradient`|
-| `accent`    | `tone=accent fill=gradient`   |
-| `success`   | `tone=success fill=gradient`  |
-| `warning`   | `tone=warning fill=gradient`  |
-| `danger`    | `tone=danger fill=gradient`   |
+| `variant`       | equals                            |
+| --------------- | ---------------------------------- |
+| `glass`         | `tone=neutral fill=glass`          |
+| `surface`       | `tone=neutral fill=surface`        |
+| `elevated`      | `tone=neutral fill=elevated`       |
+| `outline`       | `tone=neutral fill=outline`        |
+| `primary`       | `tone=primary fill=gradient`       |
+| `secondary`     | `tone=secondary fill=gradient`     |
+| `accent`        | `tone=accent fill=gradient`        |
+| `success`       | `tone=success fill=gradient`       |
+| `warning`       | `tone=warning fill=gradient`       |
+| `danger`        | `tone=danger fill=gradient`        |
+| `info`          | `tone=info fill=gradient`          |
+| `accent-green`  | `tone=accent-green fill=gradient`  |
+| `accent-pink`   | `tone=accent-pink fill=gradient`   |
 
 `glass`/`surface`/`elevated`/`outline`/`danger` are unchanged from the starterkit's old `variant` values. The other four colour presets are renamed from hue words to roles — `primary` replaces `cobalt`, `secondary` replaces `violet`, and `accent`/`warning` are new names for roles the old ABI didn't separate out this way. **There is no `variant="mint"` any more**: mint and cobalt both map to the `primary` role under the new ABI, `primary` keeps cobalt's slot (this package's own docs already called cobalt the "featured" hue), and mint's preset is dropped rather than silently overwriting it. A caller that needs mint's old look picks `tone="accent"` or `tone="success"` and reviews the result.
+
+`info`, `accent-green` and `accent-pink` are not part of that rename — the 1.1.1 ABI added them as three new roles alongside the original six, with no old hue word to trace back to. Their presets follow the same shape as every other role preset: `tone=<role> fill=gradient`, nothing else.
 
 ## Other props
 
@@ -80,7 +85,9 @@ Anything else is forwarded to the underlying element.
 
 The vendored defaults are a generated copy of the design system's default brand preset (Think) — `pnpm sync:tokens` rebuilds them, `pnpm sync:tokens:check` fails when the copy has drifted, and `--source=<path-or-url>` reads a different sheet. Both read the sibling `starterkit-theme` checkout by default, so they are a *local* gate; the published [CDN sheet](https://cdn.thinktalentws48.click/starterkit/colors_and_type.css) still predates the 2.0.0 semantic-role tokens, which is why it is no longer the default source. Only tokens the CSS actually uses are vendored; the seed list is scraped from `styles.css` itself, so it cannot fall out of date. None of this affects you as a consumer: if your app defines these tokens — from that sheet, the theme package, or your own CSS — every default is overridden and none of it is reachable.
 
-Tokens read: `--{primary,secondary,accent,success,warning,danger}` (the family's own border-ready mark) · `--{primary,secondary,accent,success,warning,danger,fg1}-channel` · `--{primary,secondary,accent,success,warning,danger}-on-solid` (the measured ink) · `--{primary,secondary,accent,success,warning,danger}-bg` (tinted hover background) · `--gradient-{primary,secondary,accent,success,warning,danger}` · `--surface` `--surface-elevated` `--fg1` `--border` · `--glass-bg` `--glass-border` · `--shadow-card` `--shadow-elevated` · `--radius-card` `--ease-entrance`
+Tokens read: `--{primary,secondary,accent,success,warning,danger,info,accent-green,accent-pink}` (the family's own border-ready mark) · `--{primary,secondary,accent,success,warning,danger,info,accent-green,accent-pink,fg1}-channel` · `--{primary,secondary,accent,success,warning,danger,info,accent-green,accent-pink}-on-solid` (the measured ink) · `--{primary,secondary,accent,success,warning,danger,info,accent-green,accent-pink}-bg` (tinted hover background) · `--gradient-{primary,secondary,accent,success,warning,danger,info,accent-green,accent-pink}` · `--surface` `--surface-elevated` `--fg1` `--border` · `--glass-bg` `--glass-border` · `--shadow-card` `--shadow-elevated` · `--radius-card` `--ease-entrance`
+
+Two more exist on the sheet but are not read by any `tone` rule — `--gradient-primary-info` and `--gradient-primary-accent-pink` are composite (a role blended with `primary`, not with itself), so `data-tone` has no slot for them. Reach them the same way any raw host token reaches the card: `accent="var(--gradient-primary-info)"`. See the "Cross-family gradients" Storybook story.
 
 Light mode is keyed off `[data-mui-color-scheme="light"]` (what the Obsidian sheet uses) **or** `[data-theme="light"]` on any ancestor; with neither attribute present, `prefers-color-scheme` decides.
 
