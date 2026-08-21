@@ -12,6 +12,9 @@ const tones: CardTone[] = [
   "success",
   "warning",
   "danger",
+  "info",
+  "accent-green",
+  "accent-pink",
   "neutral",
 ];
 const fills: CardFill[] = ["glass", "surface", "elevated", "gradient", "outline"];
@@ -207,7 +210,7 @@ export const AxisMatrix: Story = {
   render: () => (
     <StoryFrame
       title="Tone × fill atlas"
-      description="Every surface treatment against every colour identity. The axes are orthogonal, so all 35 cells are reachable — a named preset is just one of them."
+      description="Every surface treatment against every colour identity. The axes are orthogonal, so all 50 cells are reachable — a named preset is just one of them."
     >
       {fills.map((fill) => (
         <Section
@@ -287,6 +290,48 @@ export const States: Story = {
           </Swatch>
           <Swatch fill="surface" accent="#f43f5e" noBorder>
             Any CSS colour
+          </Swatch>
+        </div>
+      </Section>
+    </StoryFrame>
+  ),
+};
+
+/**
+ * The 1.1.1 ABI publishes composite gradients alongside the nine single-role
+ * ones — a role blended with `primary` rather than with itself. There are
+ * only two: `--gradient-primary-info` and `--gradient-primary-accent-pink`.
+ * Neither is a card tone (`data-tone` only ever selects a single role), so
+ * they are shown the same way any raw host token reaches the card: through
+ * `accent`, which takes any CSS colour string and is drawn as the top strip.
+ */
+export const CrossFamilyGradients: Story = {
+  parameters: {
+    docs: {
+      description: {
+        story:
+          "Two composite tokens the theme package publishes alongside the nine single-role " +
+          "gradients — a role blended with `primary` rather than with itself. `accent` takes " +
+          "any CSS colour string, so pointing it at one of these draws the strip as the gradient " +
+          "instead of a flat fill.",
+      },
+    },
+  },
+  render: () => (
+    <StoryFrame
+      title="Cross-family gradients"
+      description="--gradient-primary-info and --gradient-primary-accent-pink — not tones, so not in the atlas above."
+    >
+      <Section
+        title="primary → info / primary → accent-pink"
+        description={'Drawn as the accent strip via accent="var(--gradient-primary-info)".'}
+      >
+        <div className="ic-story-grid">
+          <Swatch fill="glass" accent="var(--gradient-primary-info)" interactive>
+            primary → info
+          </Swatch>
+          <Swatch fill="glass" accent="var(--gradient-primary-accent-pink)" interactive>
+            primary → accent-pink
           </Swatch>
         </div>
       </Section>

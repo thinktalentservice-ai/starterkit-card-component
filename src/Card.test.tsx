@@ -316,6 +316,9 @@ describe("accessibility", () => {
       "success",
       "warning",
       "danger",
+      "info",
+      "accent-green",
+      "accent-pink",
       "neutral",
     ] as const;
     const fills = ["glass", "surface", "elevated", "gradient", "outline"] as const;

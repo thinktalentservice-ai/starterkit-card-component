@@ -28,6 +28,9 @@ export type CardTone =
   | "success"
   | "warning"
   | "danger"
+  | "info"
+  | "accent-green"
+  | "accent-pink"
   | "neutral";
 export type CardFill = "glass" | "surface" | "elevated" | "gradient" | "outline";
 export type CardPad = "none" | "sm" | "md" | "lg";
@@ -46,21 +49,22 @@ export const DEFAULT_AXES: CardAxes = { tone: "neutral", fill: "glass" };
  * unset.
  *
  * `glass`/`surface`/`elevated`/`outline` are unchanged. The five old hue
- * presets (`cobalt`/`violet`/`mint`/`amber`/`danger`) are replaced by the six
- * role presets the new ABI defines (`primary`/`secondary`/`accent`/`success`/
- * `warning`/`danger`) — `accent` and `success` are new, not aliases of
- * anything that existed before.
+ * presets (`cobalt`/`violet`/`mint`/`amber`/`danger`) were first replaced by
+ * the six role presets the 1.1.0 ABI defined (`primary`/`secondary`/`accent`/
+ * `success`/`warning`/`danger`) — `accent` and `success` were new then, not
+ * aliases of anything that existed before. 1.1.1 grew the ABI to nine roles,
+ * adding `info`/`accent-green`/`accent-pink` the same way.
  *
  * The hue → role rename is NOT a 1:1 relabelling and this list is not one.
  * The old preset keys were hue words picked one per screenshot; the new ones
- * are the six roles the ABI defines, so the map is now regular by construction
- * — one preset per role, each `fill: "gradient"`, no gaps and no favourites.
+ * are the roles the ABI defines, so the map is regular by construction — one
+ * preset per role, each `fill: "gradient"`, no gaps and no favourites.
  *
  * The two that had a same-named tone are the ones to be careful about, because
  * a caller reading the old code will guess wrong:
  *
  *   variant="mint"    was `palette.primary.main`  → closest is `primary`
- *   variant="cobalt"  was `palette.info.main`     → closest is `accent`
+ *   variant="cobalt"  was `palette.info.main`     → closest is `info`
  *   variant="violet"  was `palette.secondary.main`→ `secondary`
  *   variant="amber"                               → `warning`
  *   variant="danger"                              → `danger`
@@ -81,6 +85,9 @@ export const PRESETS = {
   success: { tone: "success", fill: "gradient" },
   warning: { tone: "warning", fill: "gradient" },
   danger: { tone: "danger", fill: "gradient" },
+  info: { tone: "info", fill: "gradient" },
+  "accent-green": { tone: "accent-green", fill: "gradient" },
+  "accent-pink": { tone: "accent-pink", fill: "gradient" },
 } as const satisfies Record<string, Partial<CardAxes>>;
 
 export type CardPreset = keyof typeof PRESETS;
