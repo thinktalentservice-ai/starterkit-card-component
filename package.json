@@ -1,6 +1,6 @@
 {
   "name": "@devopsnext/starterkit-card-component",
-  "version": "2.1.0",
+  "version": "2.2.0",
   "description": "Obsidian design-system Card — token-driven, CSS-styled, zero runtime dependencies.",
   "license": "MIT",
   "type": "module",
