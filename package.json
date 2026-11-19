@@ -3,6 +3,14 @@
   "version": "2.3.0",
   "description": "Obsidian design-system Card — token-driven, CSS-styled, zero runtime dependencies.",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thinktalentservice-ai/starterkit-card-component.git"
+  },
+  "homepage": "https://thinktalentservice-ai.github.io/starterkit-card-component/",
+  "bugs": {
+    "url": "https://github.com/thinktalentservice-ai/starterkit-card-component/issues"
+  },
   "type": "module",
   "sideEffects": [
     "*.css"
