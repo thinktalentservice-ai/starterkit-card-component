@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # Job id AND name are `build` so it can be a required status check.
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: pnpm/action-setup@v6
+        with:
+          version: 12
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+
+      - name: Install (frozen lockfile)
+        run: pnpm install --frozen-lockfile
+
+      # typecheck + vitest + tsup (package build)
+      - name: Verify
+        run: pnpm verify
+
+      # Writes the static site to ./docs (ephemeral on the runner; the committed
+      # copy under docs/ is what legacy branch-based Pages serves).
+      - name: Build Storybook
+        run: pnpm build-storybook
+
+      # ── Release-only: the artifacts the release workflow publishes ──────────
+      # Pack into $RUNNER_TEMP, NOT a dot-directory: upload-artifact@v4+
+      # silently skips hidden paths.
+      - name: Pack npm tarball
+        if: github.event_name == 'release'
+        run: pnpm pack --pack-destination "$RUNNER_TEMP/npm-package"
+
+      - name: Upload npm package
+        if: github.event_name == 'release'
+        uses: actions/upload-artifact@v7
+        with:
+          name: npm-package
+          path: ${{ runner.temp }}/npm-package/*.tgz
+          if-no-files-found: error
+
+      - name: Upload Storybook for Pages
+        if: github.event_name == 'release'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: docs
