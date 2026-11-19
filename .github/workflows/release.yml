@@ -1,0 +1,141 @@
+name: Release
+
+on:
+  release:
+    types: [published]
+
+permissions:
+  contents: read
+
+jobs:
+  guard:
+    name: guard
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.meta.outputs.version }}
+      dist_tag: ${{ steps.meta.outputs.dist_tag }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Validate tag, version and dist-tag
+        id: meta
+        env:
+          TAG: ${{ github.event.release.tag_name }}
+          PRERELEASE: ${{ github.event.release.prerelease }}
+        run: |
+          set -euo pipefail
+          case "$TAG" in
+            v*) ;;
+            *) echo "::error::Release tag '$TAG' must start with 'v' (e.g. v1.2.3)"; exit 1 ;;
+          esac
+          VERSION="${TAG#v}"
+          PKG_NAME="$(node -p "require('./package.json').name")"
+          PKG_VERSION="$(node -p "require('./package.json').version")"
+
+          if [ "$VERSION" != "$PKG_VERSION" ]; then
+            echo "::error::Tag '$TAG' (=> $VERSION) does not match package.json version $PKG_VERSION"
+            exit 1
+          fi
+
+          # `npm view` prints nothing (E404) when the version does not exist.
+          EXISTING="$(npm view "$PKG_NAME@$VERSION" version 2>/dev/null || true)"
+          if [ -n "$EXISTING" ]; then
+            echo "::error::$PKG_NAME@$VERSION is already published to npm. Bump the version and re-release."
+            exit 1
+          fi
+
+          if [ "$PRERELEASE" = "true" ]; then DIST_TAG=next; else DIST_TAG=latest; fi
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "dist_tag=$DIST_TAG" >> "$GITHUB_OUTPUT"
+          echo "Releasing $PKG_NAME@$VERSION under dist-tag '$DIST_TAG'"
+
+  build:
+    name: build
+    needs: guard
+    uses: ./.github/workflows/ci.yml
+
+  pages-status:
+    name: pages-status
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: read
+    outputs:
+      enabled: ${{ steps.pages.outputs.enabled }}
+    steps:
+      - id: pages
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+        run: |
+          set -uo pipefail
+          BUILD_TYPE="$(gh api "repos/$REPO/pages" --jq .build_type 2>/dev/null || echo none)"
+          echo "Pages build_type: $BUILD_TYPE"
+          if [ "$BUILD_TYPE" = "workflow" ]; then
+            echo "enabled=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "enabled=false" >> "$GITHUB_OUTPUT"
+            echo "::notice::Pages build_type is '$BUILD_TYPE' (not 'workflow'); skipping Pages deploy."
+          fi
+
+  deploy-pages:
+    name: deploy-pages
+    needs: [build, pages-status]
+    if: needs.pages-status.outputs.enabled == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v5
+
+  publish-npm:
+    name: publish-npm
+    needs: [guard, build]
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          registry-url: https://registry.npmjs.org
+
+      - uses: actions/download-artifact@v8
+        with:
+          name: npm-package
+          path: release
+
+      - name: Publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          DIST_TAG: ${{ needs.guard.outputs.dist_tag }}
+          IS_PRIVATE: ${{ github.event.repository.private }}
+        run: |
+          set -euo pipefail
+          if [ -z "${NODE_AUTH_TOKEN:-}" ]; then
+            echo "::error::NPM_TOKEN secret is empty. Add it as a secret on the 'npm-publish' environment."
+            exit 1
+          fi
+
+          shopt -s nullglob
+          FILES=(release/*.tgz)
+          if [ "${#FILES[@]}" -ne 1 ]; then
+            echo "::error::Expected exactly one tarball in release/, found ${#FILES[@]}"
+            exit 1
+          fi
+          # Explicit ./ prefix: a bare 'dir/file.tgz' is parsed by npm as a
+          # GitHub 'user/repo' shorthand and it tries to git-clone it.
+          TARBALL="./${FILES[0]}"
+
+          ARGS=(--access public --tag "$DIST_TAG")
+          # Provenance is only supported for public repositories.
+          if [ "$IS_PRIVATE" = "false" ]; then ARGS+=(--provenance); fi
+
+          npm publish "$TARBALL" "${ARGS[@]}"
